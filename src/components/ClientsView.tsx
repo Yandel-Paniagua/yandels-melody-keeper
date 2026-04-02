@@ -61,7 +61,15 @@ const ClientForm = ({
       </div>
       <div id="client-telefono-field">
         <label id="client-telefono-label" htmlFor="client-telefono" className="text-sm font-medium text-foreground block mb-1.5">Teléfono</label>
-        <Input id="client-telefono" value={telefono} onChange={(e) => setTelefono(e.target.value)} required className="bg-input border-border text-foreground" placeholder="Requerido" />
+        <Input
+          id="client-telefono"
+          value={telefono}
+          onChange={(e) => setTelefono(e.target.value.replace(/\D/g, ""))}
+          inputMode="numeric"
+          required
+          className="bg-input border-border text-foreground"
+          placeholder="Requerido"
+        />
       </div>
       <div id="client-direccion-field">
         <label id="client-direccion-label" htmlFor="client-direccion" className="text-sm font-medium text-foreground block mb-1.5">Dirección</label>
