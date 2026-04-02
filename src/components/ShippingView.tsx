@@ -216,7 +216,7 @@ const ShippingView = () => {
                       <Button id={`shipment-edit-${s.id}`} variant="ghost" size="icon" onClick={() => setEditing(s)} className="text-muted-foreground hover:text-primary">
                         <Pencil className="w-4 h-4" />
                       </Button>
-                      <Button id={`shipment-delete-${s.id}`} variant="ghost" size="icon" onClick={() => deleteShipment(s.id)} className="text-muted-foreground hover:text-destructive">
+                      <Button id={`shipment-delete-${s.id}`} variant="ghost" size="icon" onClick={() => setDeleteId(s.id)} className="text-muted-foreground hover:text-destructive">
                         <Trash2 className="w-4 h-4" />
                       </Button>
                     </div>
