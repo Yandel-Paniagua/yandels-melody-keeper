@@ -187,6 +187,18 @@ const ClientsView = () => {
           {editing && <ClientForm initialData={editing} onSubmit={handleUpdate} onCancel={() => setEditing(null)} />}
         </DialogContent>
       </Dialog>
+      <AlertDialog open={!!deleteId} onOpenChange={() => setDeleteId(null)}>
+        <AlertDialogContent id="client-delete-confirm" className="bg-card border-border text-foreground">
+          <AlertDialogHeader>
+            <AlertDialogTitle id="client-delete-confirm-title" className="text-foreground">¿Estás seguro?</AlertDialogTitle>
+            <AlertDialogDescription id="client-delete-confirm-desc">Esta acción eliminará al cliente permanentemente.</AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel id="client-delete-cancel">Cancelar</AlertDialogCancel>
+            <AlertDialogAction id="client-delete-action" onClick={() => { if (deleteId) { deleteClient(deleteId); setDeleteId(null); } }}>Eliminar</AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 };

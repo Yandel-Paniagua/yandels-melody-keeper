@@ -36,11 +36,16 @@ const ItemForm = ({ initialData, onSubmit, onCancel }: Props) => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    const p = parseFloat(precio) || 0;
+    if (p < 20000 || p > 750000) {
+      alert("El precio debe estar entre $20,000 y $750,000");
+      return;
+    }
     onSubmit({
       nombre,
       artista,
       categoria,
-      precio: parseFloat(precio) || 0,
+      precio: p,
       stock: parseInt(stock) || 0,
       descripcion,
     });

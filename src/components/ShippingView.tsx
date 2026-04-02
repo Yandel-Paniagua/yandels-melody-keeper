@@ -245,6 +245,18 @@ const ShippingView = () => {
           {editing && <ShipmentForm initialData={editing} onSubmit={handleUpdate} onCancel={() => setEditing(null)} />}
         </DialogContent>
       </Dialog>
+      <AlertDialog open={!!deleteId} onOpenChange={() => setDeleteId(null)}>
+        <AlertDialogContent id="shipment-delete-confirm" className="bg-card border-border text-foreground">
+          <AlertDialogHeader>
+            <AlertDialogTitle id="shipment-delete-confirm-title" className="text-foreground">¿Estás seguro?</AlertDialogTitle>
+            <AlertDialogDescription id="shipment-delete-confirm-desc">Esta acción eliminará el envío permanentemente.</AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel id="shipment-delete-cancel">Cancelar</AlertDialogCancel>
+            <AlertDialogAction id="shipment-delete-action" onClick={() => { if (deleteId) { deleteShipment(deleteId); setDeleteId(null); } }}>Eliminar</AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 };
