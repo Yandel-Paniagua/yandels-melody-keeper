@@ -158,7 +158,7 @@ const ClientsView = () => {
                       <Button id={`client-edit-${client.id}`} variant="ghost" size="icon" onClick={() => setEditing(client)} className="text-muted-foreground hover:text-primary">
                         <Pencil className="w-4 h-4" />
                       </Button>
-                      <Button id={`client-delete-${client.id}`} variant="ghost" size="icon" onClick={() => deleteClient(client.id)} className="text-muted-foreground hover:text-destructive">
+                      <Button id={`client-delete-${client.id}`} variant="ghost" size="icon" onClick={() => setDeleteId(client.id)} className="text-muted-foreground hover:text-destructive">
                         <Trash2 className="w-4 h-4" />
                       </Button>
                     </div>
