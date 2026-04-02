@@ -82,7 +82,7 @@ const ItemForm = ({ initialData, onSubmit, onCancel }: Props) => {
           <label id="form-precio-label" htmlFor="form-precio" className="text-sm font-medium text-foreground block mb-1.5">
             Precio ($)
           </label>
-          <Input id="form-precio" type="number" step="0.01" value={precio} onChange={(e) => setPrecio(e.target.value)} required className="bg-input border-border text-foreground" />
+          <Input id="form-precio" type="number" step="0.01" min="20000" max="750000" value={precio} onChange={(e) => setPrecio(e.target.value)} required className="bg-input border-border text-foreground" placeholder="20,000 - 750,000" />
         </div>
         <div id="form-stock-field">
           <label id="form-stock-label" htmlFor="form-stock" className="text-sm font-medium text-foreground block mb-1.5">
