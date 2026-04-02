@@ -65,7 +65,7 @@ const ClientForm = ({
       </div>
       <div id="client-direccion-field">
         <label id="client-direccion-label" htmlFor="client-direccion" className="text-sm font-medium text-foreground block mb-1.5">Dirección</label>
-        <Input id="client-direccion" value={direccion} onChange={(e) => setDireccion(e.target.value)} className="bg-input border-border text-foreground" />
+        <Input id="client-direccion" value={direccion} onChange={(e) => setDireccion(e.target.value)} required className="bg-input border-border text-foreground" placeholder="Requerido" />
       </div>
       <div id="client-notas-field">
         <label id="client-notas-label" htmlFor="client-notas" className="text-sm font-medium text-foreground block mb-1.5">Notas</label>
