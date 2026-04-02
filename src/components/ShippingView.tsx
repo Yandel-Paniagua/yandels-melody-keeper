@@ -155,6 +155,7 @@ const ShippingView = () => {
   const { shipments, addShipment, updateShipment, deleteShipment } = useShipments();
   const [showForm, setShowForm] = useState(false);
   const [editing, setEditing] = useState<Shipment | null>(null);
+  const [deleteId, setDeleteId] = useState<string | null>(null);
 
   const handleAdd = (data: Omit<Shipment, "id">) => {
     addShipment(data);
