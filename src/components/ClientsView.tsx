@@ -5,6 +5,16 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Plus, Pencil, Trash2, Search, Users } from "lucide-react";
 import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
+import {
   Dialog,
   DialogContent,
   DialogHeader,
@@ -43,7 +53,7 @@ const ClientForm = ({
     <form id="client-form" onSubmit={handleSubmit} className="space-y-4">
       <div id="client-nombre-field">
         <label id="client-nombre-label" htmlFor="client-nombre" className="text-sm font-medium text-foreground block mb-1.5">Nombre completo</label>
-        <Input id="client-nombre" value={nombre} onChange={(e) => setNombre(e.target.value)} required className="bg-input border-border text-foreground" />
+        <Input id="client-nombre" value={nombre} onChange={(e) => setNombre(e.target.value)} required className="bg-input border-border text-foreground" placeholder="Requerido" />
       </div>
       <div id="client-email-field">
         <label id="client-email-label" htmlFor="client-email" className="text-sm font-medium text-foreground block mb-1.5">Email</label>
@@ -51,11 +61,11 @@ const ClientForm = ({
       </div>
       <div id="client-telefono-field">
         <label id="client-telefono-label" htmlFor="client-telefono" className="text-sm font-medium text-foreground block mb-1.5">Teléfono</label>
-        <Input id="client-telefono" value={telefono} onChange={(e) => setTelefono(e.target.value)} className="bg-input border-border text-foreground" />
+        <Input id="client-telefono" value={telefono} onChange={(e) => setTelefono(e.target.value)} required className="bg-input border-border text-foreground" placeholder="Requerido" />
       </div>
       <div id="client-direccion-field">
         <label id="client-direccion-label" htmlFor="client-direccion" className="text-sm font-medium text-foreground block mb-1.5">Dirección</label>
-        <Input id="client-direccion" value={direccion} onChange={(e) => setDireccion(e.target.value)} className="bg-input border-border text-foreground" />
+        <Input id="client-direccion" value={direccion} onChange={(e) => setDireccion(e.target.value)} required className="bg-input border-border text-foreground" placeholder="Requerido" />
       </div>
       <div id="client-notas-field">
         <label id="client-notas-label" htmlFor="client-notas" className="text-sm font-medium text-foreground block mb-1.5">Notas</label>
@@ -74,6 +84,7 @@ const ClientsView = () => {
   const [showForm, setShowForm] = useState(false);
   const [editing, setEditing] = useState<Client | null>(null);
   const [search, setSearch] = useState("");
+  const [deleteId, setDeleteId] = useState<string | null>(null);
 
   const filtered = clients.filter(
     (c) =>
@@ -147,7 +158,7 @@ const ClientsView = () => {
                       <Button id={`client-edit-${client.id}`} variant="ghost" size="icon" onClick={() => setEditing(client)} className="text-muted-foreground hover:text-primary">
                         <Pencil className="w-4 h-4" />
                       </Button>
-                      <Button id={`client-delete-${client.id}`} variant="ghost" size="icon" onClick={() => deleteClient(client.id)} className="text-muted-foreground hover:text-destructive">
+                      <Button id={`client-delete-${client.id}`} variant="ghost" size="icon" onClick={() => setDeleteId(client.id)} className="text-muted-foreground hover:text-destructive">
                         <Trash2 className="w-4 h-4" />
                       </Button>
                     </div>
@@ -176,6 +187,18 @@ const ClientsView = () => {
           {editing && <ClientForm initialData={editing} onSubmit={handleUpdate} onCancel={() => setEditing(null)} />}
         </DialogContent>
       </Dialog>
+      <AlertDialog open={!!deleteId} onOpenChange={() => setDeleteId(null)}>
+        <AlertDialogContent id="client-delete-confirm" className="bg-card border-border text-foreground">
+          <AlertDialogHeader>
+            <AlertDialogTitle id="client-delete-confirm-title" className="text-foreground">¿Estás seguro?</AlertDialogTitle>
+            <AlertDialogDescription id="client-delete-confirm-desc">Esta acción eliminará al cliente permanentemente.</AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel id="client-delete-cancel">Cancelar</AlertDialogCancel>
+            <AlertDialogAction id="client-delete-action" onClick={() => { if (deleteId) { deleteClient(deleteId); setDeleteId(null); } }}>Eliminar</AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 };

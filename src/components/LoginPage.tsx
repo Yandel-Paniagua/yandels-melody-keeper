@@ -54,7 +54,8 @@ const LoginPage = ({ onLogin }: { onLogin: () => void }) => {
               id="login-password"
               type="password"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) => setPassword(e.target.value.slice(0, 15))}
+              maxLength={15}
               placeholder="••••••••"
               className="bg-input border-border text-foreground placeholder:text-muted-foreground"
             />

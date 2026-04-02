@@ -8,6 +8,16 @@ import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Plus, Trash2, Pencil, Truck, CalendarIcon } from "lucide-react";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
 import { cn } from "@/lib/utils";
@@ -78,7 +88,7 @@ const ShipmentForm = ({
       <div id="shipment-row" className="grid grid-cols-2 gap-4">
         <div id="shipment-telefono-field">
           <label id="shipment-telefono-label" htmlFor="shipment-telefono" className="text-sm font-medium text-foreground block mb-1.5">Teléfono</label>
-          <Input id="shipment-telefono" value={telefono} onChange={(e) => setTelefono(e.target.value)} required className="bg-input border-border text-foreground" />
+          <Input id="shipment-telefono" value={telefono} onChange={(e) => setTelefono(e.target.value.replace(/\D/g, ""))} required className="bg-input border-border text-foreground" placeholder="Solo números" />
         </div>
         <div id="shipment-estado-field">
           <label id="shipment-estado-label" className="text-sm font-medium text-foreground block mb-1.5">Estado</label>
@@ -145,6 +155,7 @@ const ShippingView = () => {
   const { shipments, addShipment, updateShipment, deleteShipment } = useShipments();
   const [showForm, setShowForm] = useState(false);
   const [editing, setEditing] = useState<Shipment | null>(null);
+  const [deleteId, setDeleteId] = useState<string | null>(null);
 
   const handleAdd = (data: Omit<Shipment, "id">) => {
     addShipment(data);
@@ -205,7 +216,7 @@ const ShippingView = () => {
                       <Button id={`shipment-edit-${s.id}`} variant="ghost" size="icon" onClick={() => setEditing(s)} className="text-muted-foreground hover:text-primary">
                         <Pencil className="w-4 h-4" />
                       </Button>
-                      <Button id={`shipment-delete-${s.id}`} variant="ghost" size="icon" onClick={() => deleteShipment(s.id)} className="text-muted-foreground hover:text-destructive">
+                      <Button id={`shipment-delete-${s.id}`} variant="ghost" size="icon" onClick={() => setDeleteId(s.id)} className="text-muted-foreground hover:text-destructive">
                         <Trash2 className="w-4 h-4" />
                       </Button>
                     </div>
@@ -234,6 +245,18 @@ const ShippingView = () => {
           {editing && <ShipmentForm initialData={editing} onSubmit={handleUpdate} onCancel={() => setEditing(null)} />}
         </DialogContent>
       </Dialog>
+      <AlertDialog open={!!deleteId} onOpenChange={() => setDeleteId(null)}>
+        <AlertDialogContent id="shipment-delete-confirm" className="bg-card border-border text-foreground">
+          <AlertDialogHeader>
+            <AlertDialogTitle id="shipment-delete-confirm-title" className="text-foreground">¿Estás seguro?</AlertDialogTitle>
+            <AlertDialogDescription id="shipment-delete-confirm-desc">Esta acción eliminará el envío permanentemente.</AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel id="shipment-delete-cancel">Cancelar</AlertDialogCancel>
+            <AlertDialogAction id="shipment-delete-action" onClick={() => { if (deleteId) { deleteShipment(deleteId); setDeleteId(null); } }}>Eliminar</AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 };
