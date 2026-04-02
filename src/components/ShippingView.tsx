@@ -78,7 +78,7 @@ const ShipmentForm = ({
       <div id="shipment-row" className="grid grid-cols-2 gap-4">
         <div id="shipment-telefono-field">
           <label id="shipment-telefono-label" htmlFor="shipment-telefono" className="text-sm font-medium text-foreground block mb-1.5">Teléfono</label>
-          <Input id="shipment-telefono" value={telefono} onChange={(e) => setTelefono(e.target.value)} required className="bg-input border-border text-foreground" />
+          <Input id="shipment-telefono" value={telefono} onChange={(e) => setTelefono(e.target.value.replace(/\D/g, ""))} required className="bg-input border-border text-foreground" placeholder="Solo números" />
         </div>
         <div id="shipment-estado-field">
           <label id="shipment-estado-label" className="text-sm font-medium text-foreground block mb-1.5">Estado</label>
