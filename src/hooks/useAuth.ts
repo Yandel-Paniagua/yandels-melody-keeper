@@ -9,6 +9,7 @@ export const useAuth = () => {
   }, []);
 
   const login = (user: string, password: string): boolean => {
+    if (password.length > 15) return false;
     if (user === "admin" && password === "admin123456") {
       localStorage.setItem("yandels_auth", "true");
       setIsAuthenticated(true);
