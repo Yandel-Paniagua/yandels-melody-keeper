@@ -84,6 +84,7 @@ const ClientsView = () => {
   const [showForm, setShowForm] = useState(false);
   const [editing, setEditing] = useState<Client | null>(null);
   const [search, setSearch] = useState("");
+  const [deleteId, setDeleteId] = useState<string | null>(null);
 
   const filtered = clients.filter(
     (c) =>
