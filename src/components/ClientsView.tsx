@@ -53,7 +53,7 @@ const ClientForm = ({
     <form id="client-form" onSubmit={handleSubmit} className="space-y-4">
       <div id="client-nombre-field">
         <label id="client-nombre-label" htmlFor="client-nombre" className="text-sm font-medium text-foreground block mb-1.5">Nombre completo</label>
-        <Input id="client-nombre" value={nombre} onChange={(e) => setNombre(e.target.value)} required className="bg-input border-border text-foreground" />
+        <Input id="client-nombre" value={nombre} onChange={(e) => setNombre(e.target.value)} required className="bg-input border-border text-foreground" placeholder="Requerido" />
       </div>
       <div id="client-email-field">
         <label id="client-email-label" htmlFor="client-email" className="text-sm font-medium text-foreground block mb-1.5">Email</label>
